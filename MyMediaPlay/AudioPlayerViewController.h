@@ -11,4 +11,6 @@
 
 @interface AudioPlayerViewController : UIViewController <AVAudioPlayerDelegate, UITableViewDelegate, UITableViewDataSource>
 
+-(void)updateLockScreenInfo;
+
 @end

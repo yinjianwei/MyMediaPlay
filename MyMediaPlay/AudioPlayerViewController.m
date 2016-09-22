@@ -9,6 +9,7 @@
 #import "AudioPlayerViewController.h"
 #import "UIColor+MyExtend.h"
 #import "AudioData.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface AudioPlayerViewController ()
 
@@ -49,6 +50,8 @@
     [[NSRunLoop mainRunLoop] addTimer:self.progressTimer forMode:NSDefaultRunLoopMode];
     [self.progressTimer fire];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLockScreenInfo) name:@"enterBackground" object:nil];
+    
     [super viewDidAppear:animated];
 }
 
@@ -60,6 +63,8 @@
     self.progressTimer = NULL;
     
     [self.currentAudioPlayer pause];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)setupUI
@@ -174,6 +179,53 @@
         data.name = @"微微一笑很倾城";
         data.fileName = @"杨洋 - 微微一笑很倾城";
         [self.audioPlayList addObject:data];
+    }
+}
+
+-(void)remoteControlReceivedWithEvent:(UIEvent *)event
+{
+    if(!self.currentAudioPlayer)
+        return;
+    
+    if(event.type==UIEventTypeRemoteControl){
+        switch (event.subtype) {
+            case UIEventSubtypeRemoteControlPlay:
+                [self playCurrentAudio];
+                break;
+            case UIEventSubtypeRemoteControlPause:
+                [self pauseCurrentAudio];
+                break;
+            case UIEventSubtypeRemoteControlTogglePlayPause:
+                if(self.currentAudioPlayer.isPlaying)
+                {
+                    [self pauseCurrentAudio];
+                }
+                else
+                {
+                    [self playCurrentAudio];
+                }
+                break;
+            case UIEventSubtypeRemoteControlNextTrack:
+                [self onPlayNextButtonEvent:nil];
+                break;
+            case UIEventSubtypeRemoteControlPreviousTrack:
+                [self onPlayPrevButtonEvent:nil];
+                break;
+            case UIEventSubtypeRemoteControlBeginSeekingForward:
+                [self onPlayFastButtonEvent:nil];
+                break;
+            case UIEventSubtypeRemoteControlEndSeekingForward:
+                [self recoverNormalPlaySpeed];
+                break;
+            case UIEventSubtypeRemoteControlBeginSeekingBackward:
+                [self onPlaySlowButtonEvent:nil];
+                break;
+            case UIEventSubtypeRemoteControlEndSeekingBackward:
+                [self recoverNormalPlaySpeed];
+                break;
+            default:
+                break;
+        }
     }
 }
 
@@ -357,6 +409,13 @@
     [self playCurrentAudio];
 }
 
+#pragma mark - public medthod
+
+-(void)updateLockScreenInfo
+{
+    [self setLockScreenInfo];
+}
+
 #pragma mark - self method
 
 -(AVAudioPlayer*)createAudioPlayerByFile:(NSString*)fileName
@@ -407,6 +466,25 @@
     
     [self.currentAudioPlayer pause];
     [self.playAndPauseButton setImage:[UIImage imageNamed:@"button-play"] forState:UIControlStateNormal];
+}
+
+-(void)recoverNormalPlaySpeed
+{
+    if(!self.currentAudioPlayer)
+        return;
+    
+    self.currentAudioPlayer.rate = 1.0f;
+}
+
+-(void)setLockScreenInfo
+{
+    MPMediaItemArtwork* artWork = [[MPMediaItemArtwork alloc] initWithImage:[UIImage imageNamed:@"person"]];
+    NSDictionary* dict = @{MPMediaItemPropertyTitle:@"微微一笑很倾城",
+                           MPMediaItemPropertyArtist:@"杨洋",
+                           MPMediaItemPropertyArtwork:artWork,
+                           MPMediaItemPropertyRating:@(self.currentAudioPlayer.rate),
+                           MPMediaItemPropertyPlaybackDuration:@(self.currentAudioPlayer.duration)};
+    [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:dict];
 }
 
 @end
