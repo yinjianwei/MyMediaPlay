@@ -7,8 +7,12 @@
 //
 
 #import "VideoPlayerViewController.h"
+#import <AVFoundation/AVFoundation.h>
+#import <AVKit/AVKit.h>
 
 @interface VideoPlayerViewController ()
+
+@property(nonatomic, strong)AVPlayerViewController* videoPlayer;
 
 @end
 
@@ -17,21 +21,52 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    UITableView* tableView = [[UITableView alloc] init];
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    tableView.tableFooterView = [[UIView alloc] init];
+    tableView.rowHeight = 40;
+    [self.view addSubview:tableView];
+    [tableView makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)playVideoByIndex:(NSUInteger)index
+{
+    NSString* urlStr = [[NSBundle mainBundle] pathForResource:@"lion" ofType:@"mp4"];
+    self.videoPlayer = [[AVPlayerViewController alloc] init];
+    self.videoPlayer.player = [[AVPlayer alloc] initWithPlayerItem:[[AVPlayerItem alloc] initWithURL:[NSURL fileURLWithPath:urlStr]]];
+    [self presentViewController:self.videoPlayer animated:YES completion:nil];
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - UITableViewDataSource & UITableViewDelegate
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
 }
-*/
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"videoCell"];
+    if(!cell)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"videoCell"];
+    }
+    cell.textLabel.text = @"lion";
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self playVideoByIndex:indexPath.row];
+}
 
 @end

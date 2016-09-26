@@ -19,6 +19,7 @@
 		7C47A35E1D82537D00D27D0F /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C47A3511D82537D00D27D0F /* View+MASAdditions.m */; };
 		7C47A35F1D82537D00D27D0F /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C47A3541D82537D00D27D0F /* ViewController+MASAdditions.m */; };
 		7C51CB151D87D8EF000D680E /* AudioData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C51CB141D87D8EF000D680E /* AudioData.m */; };
+		7C566BC31D95186400F0EEFF /* lion.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7C566BC21D95186400F0EEFF /* lion.mp4 */; };
 		7C75968C1D86830500941C2D /* UIColor+MyExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C75968B1D86830500941C2D /* UIColor+MyExtend.m */; };
 		7CB3309D1D815F8E00ED10BD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB3309C1D815F8E00ED10BD /* main.m */; };
 		7CB330A01D815F8E00ED10BD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB3309F1D815F8E00ED10BD /* AppDelegate.m */; };
@@ -28,6 +29,7 @@
 		7CB330B91D81603900ED10BD /* AudioPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB330B61D81603900ED10BD /* AudioPlayerViewController.m */; };
 		7CB330BA1D81603900ED10BD /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB330B81D81603900ED10BD /* VideoPlayerViewController.m */; };
 		7CB330BD1D81604300ED10BD /* 杨洋 - 微微一笑很倾城.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7CB330BC1D81604300ED10BD /* 杨洋 - 微微一笑很倾城.mp3 */; };
+		7CFC93701D98FE7C005596DC /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CFC936F1D98FE7C005596DC /* AVKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,7 @@
 		7C47A3601D8253AF00D27D0F /* MyMediaPlay-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyMediaPlay-Prefix.pch"; sourceTree = "<group>"; };
 		7C51CB131D87D8EF000D680E /* AudioData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioData.h; path = Data/AudioData.h; sourceTree = "<group>"; };
 		7C51CB141D87D8EF000D680E /* AudioData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioData.m; path = Data/AudioData.m; sourceTree = "<group>"; };
+		7C566BC21D95186400F0EEFF /* lion.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = lion.mp4; sourceTree = "<group>"; };
 		7C7596881D86829A00941C2D /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
 		7C75968A1D86830500941C2D /* UIColor+MyExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+MyExtend.h"; path = "MyClasses/UIColor+MyExtend.h"; sourceTree = "<group>"; };
 		7C75968B1D86830500941C2D /* UIColor+MyExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+MyExtend.m"; path = "MyClasses/UIColor+MyExtend.m"; sourceTree = "<group>"; };
@@ -76,6 +79,7 @@
 		7CB330B71D81603900ED10BD /* VideoPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayerViewController.h; sourceTree = "<group>"; };
 		7CB330B81D81603900ED10BD /* VideoPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayerViewController.m; sourceTree = "<group>"; };
 		7CB330BC1D81604300ED10BD /* 杨洋 - 微微一笑很倾城.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "杨洋 - 微微一笑很倾城.mp3"; sourceTree = "<group>"; };
+		7CFC936F1D98FE7C005596DC /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CFC93701D98FE7C005596DC /* AVKit.framework in Frameworks */,
 				7CB330B41D815FC600ED10BD /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -162,6 +167,7 @@
 			children = (
 				7CB3309A1D815F8E00ED10BD /* MyMediaPlay */,
 				7CB330991D815F8E00ED10BD /* Products */,
+				7CFC936E1D98FE7C005596DC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -216,9 +222,18 @@
 		7CB330BB1D81604300ED10BD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7C566BC21D95186400F0EEFF /* lion.mp4 */,
 				7CB330BC1D81604300ED10BD /* 杨洋 - 微微一笑很倾城.mp3 */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		7CFC936E1D98FE7C005596DC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7CFC936F1D98FE7C005596DC /* AVKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,6 +302,7 @@
 				7C47A3551D82537D00D27D0F /* Info.plist in Resources */,
 				7CB330AB1D815F8E00ED10BD /* LaunchScreen.storyboard in Resources */,
 				7CB330BD1D81604300ED10BD /* 杨洋 - 微微一笑很倾城.mp3 in Resources */,
+				7C566BC31D95186400F0EEFF /* lion.mp4 in Resources */,
 				7CB330A81D815F8E00ED10BD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
