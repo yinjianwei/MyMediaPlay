@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C3CD3141D9CBC0B0096B24C /* CustomVideoPlayLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C3CD3131D9CBC0B0096B24C /* CustomVideoPlayLayer.m */; };
 		7C47A3551D82537D00D27D0F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C47A33B1D82537D00D27D0F /* Info.plist */; };
 		7C47A3561D82537D00D27D0F /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C47A33D1D82537D00D27D0F /* MASCompositeConstraint.m */; };
 		7C47A3571D82537D00D27D0F /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C47A3401D82537D00D27D0F /* MASConstraint.m */; };
@@ -18,6 +19,7 @@
 		7C47A35D1D82537D00D27D0F /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C47A34F1D82537D00D27D0F /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		7C47A35E1D82537D00D27D0F /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C47A3511D82537D00D27D0F /* View+MASAdditions.m */; };
 		7C47A35F1D82537D00D27D0F /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C47A3541D82537D00D27D0F /* ViewController+MASAdditions.m */; };
+		7C4F908D1DAB7FEC00DE7F8C /* PhotoAndVideoPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C4F908C1DAB7FEC00DE7F8C /* PhotoAndVideoPickViewController.m */; };
 		7C51CB151D87D8EF000D680E /* AudioData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C51CB141D87D8EF000D680E /* AudioData.m */; };
 		7C566BC31D95186400F0EEFF /* lion.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7C566BC21D95186400F0EEFF /* lion.mp4 */; };
 		7C75968C1D86830500941C2D /* UIColor+MyExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C75968B1D86830500941C2D /* UIColor+MyExtend.m */; };
@@ -33,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7C3CD3121D9CBC0B0096B24C /* CustomVideoPlayLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomVideoPlayLayer.h; sourceTree = "<group>"; };
+		7C3CD3131D9CBC0B0096B24C /* CustomVideoPlayLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomVideoPlayLayer.m; sourceTree = "<group>"; };
 		7C47A33B1D82537D00D27D0F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C47A33C1D82537D00D27D0F /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		7C47A33D1D82537D00D27D0F /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
@@ -60,9 +64,12 @@
 		7C47A3531D82537D00D27D0F /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
 		7C47A3541D82537D00D27D0F /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		7C47A3601D8253AF00D27D0F /* MyMediaPlay-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyMediaPlay-Prefix.pch"; sourceTree = "<group>"; };
+		7C4F908B1DAB7FEC00DE7F8C /* PhotoAndVideoPickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoAndVideoPickViewController.h; sourceTree = "<group>"; };
+		7C4F908C1DAB7FEC00DE7F8C /* PhotoAndVideoPickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoAndVideoPickViewController.m; sourceTree = "<group>"; };
 		7C51CB131D87D8EF000D680E /* AudioData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioData.h; path = Data/AudioData.h; sourceTree = "<group>"; };
 		7C51CB141D87D8EF000D680E /* AudioData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioData.m; path = Data/AudioData.m; sourceTree = "<group>"; };
 		7C566BC21D95186400F0EEFF /* lion.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = lion.mp4; sourceTree = "<group>"; };
+		7C697E821DAB8E7F005AAF48 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		7C7596881D86829A00941C2D /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
 		7C75968A1D86830500941C2D /* UIColor+MyExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+MyExtend.h"; path = "MyClasses/UIColor+MyExtend.h"; sourceTree = "<group>"; };
 		7C75968B1D86830500941C2D /* UIColor+MyExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+MyExtend.m"; path = "MyClasses/UIColor+MyExtend.m"; sourceTree = "<group>"; };
@@ -191,6 +198,10 @@
 				7CB330B61D81603900ED10BD /* AudioPlayerViewController.m */,
 				7CB330B71D81603900ED10BD /* VideoPlayerViewController.h */,
 				7CB330B81D81603900ED10BD /* VideoPlayerViewController.m */,
+				7C3CD3121D9CBC0B0096B24C /* CustomVideoPlayLayer.h */,
+				7C3CD3131D9CBC0B0096B24C /* CustomVideoPlayLayer.m */,
+				7C4F908B1DAB7FEC00DE7F8C /* PhotoAndVideoPickViewController.h */,
+				7C4F908C1DAB7FEC00DE7F8C /* PhotoAndVideoPickViewController.m */,
 				7CB330B21D815FA800ED10BD /* Frameworks */,
 				7CB3309E1D815F8E00ED10BD /* AppDelegate.h */,
 				7CB3309F1D815F8E00ED10BD /* AppDelegate.m */,
@@ -321,8 +332,10 @@
 				7C47A3571D82537D00D27D0F /* MASConstraint.m in Sources */,
 				7C47A35F1D82537D00D27D0F /* ViewController+MASAdditions.m in Sources */,
 				7C47A3591D82537D00D27D0F /* MASLayoutConstraint.m in Sources */,
+				7C3CD3141D9CBC0B0096B24C /* CustomVideoPlayLayer.m in Sources */,
 				7C47A35C1D82537D00D27D0F /* NSArray+MASAdditions.m in Sources */,
 				7C75968C1D86830500941C2D /* UIColor+MyExtend.m in Sources */,
+				7C4F908D1DAB7FEC00DE7F8C /* PhotoAndVideoPickViewController.m in Sources */,
 				7C47A35B1D82537D00D27D0F /* MASViewConstraint.m in Sources */,
 				7C47A35A1D82537D00D27D0F /* MASViewAttribute.m in Sources */,
 				7C47A35E1D82537D00D27D0F /* View+MASAdditions.m in Sources */,
@@ -340,6 +353,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				7CB330AA1D815F8E00ED10BD /* Base */,
+				7C697E821DAB8E7F005AAF48 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -351,6 +365,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -398,6 +413,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

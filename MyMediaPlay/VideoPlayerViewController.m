@@ -9,6 +9,7 @@
 #import "VideoPlayerViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AVKit/AVKit.h>
+#import "CustomVideoPlayLayer.h"
 
 @interface VideoPlayerViewController ()
 
@@ -36,9 +37,12 @@
 -(void)playVideoByIndex:(NSUInteger)index
 {
     NSString* urlStr = [[NSBundle mainBundle] pathForResource:@"lion" ofType:@"mp4"];
-    self.videoPlayer = [[AVPlayerViewController alloc] init];
-    self.videoPlayer.player = [[AVPlayer alloc] initWithPlayerItem:[[AVPlayerItem alloc] initWithURL:[NSURL fileURLWithPath:urlStr]]];
-    [self presentViewController:self.videoPlayer animated:YES completion:nil];
+//    self.videoPlayer = [[AVPlayerViewController alloc] init];
+//    self.videoPlayer.player = [[AVPlayer alloc] initWithPlayerItem:[[AVPlayerItem alloc] initWithURL:[NSURL fileURLWithPath:urlStr]]];
+//    [self presentViewController:self.videoPlayer animated:YES completion:nil];
+    
+    CustomVideoPlayLayer* videoPlayer = [[CustomVideoPlayLayer alloc] initVideoPlayerWithFilePath:urlStr];
+    [self.navigationController pushViewController:videoPlayer animated:YES];
 }
 
 #pragma mark - UITableViewDataSource & UITableViewDelegate

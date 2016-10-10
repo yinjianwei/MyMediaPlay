@@ -28,6 +28,10 @@
 
 @implementation AudioPlayerViewController
 
+-(void)dealloc
+{
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -101,7 +105,6 @@
     }];
     
     self.progressSlider = [[UISlider alloc] init];
-    [self.progressSlider addTarget:self action:@selector(updateValue:) forControlEvents:UIControlEventValueChanged];
     [self.progressSlider addTarget:self action:@selector(endDragSlider:) forControlEvents:UIControlEventTouchUpInside];
     [audioView addSubview:self.progressSlider];
     [self.progressSlider makeConstraints:^(MASConstraintMaker *make) {
@@ -333,11 +336,6 @@
 }
 
 #pragma mark - Event process
-
-//UIControlEventValueChanged
--(void)updateValue:(id)sender
-{
-}
 
 //UIControlEventTouchUpInSide
 -(void)endDragSlider:(id)sender

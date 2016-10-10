@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "AudioPlayerViewController.h"
 #import "VideoPlayerViewController.h"
+#import "PhotoAndVideoPickViewController.h"
 
 @interface AppDelegate ()
 
@@ -34,7 +35,12 @@
     videoNaviCtrl.tabBarItem.title = @"视频播放";
     videoNaviCtrl.tabBarItem.image = [UIImage imageNamed:@"film"];
     
-    tabCtrl.viewControllers = @[audioNaviCtrl, videoNaviCtrl];
+    PhotoAndVideoPickViewController* photoAndVideoPicker = [[PhotoAndVideoPickViewController alloc] init];
+    UINavigationController* photoAndvideoNaviCtrl = [[UINavigationController alloc] initWithRootViewController:photoAndVideoPicker];
+    photoAndVideoPicker.tabBarItem.title = @"照片/视频";
+    photoAndVideoPicker.tabBarItem.image = [UIImage imageNamed:@"film"];
+    
+    tabCtrl.viewControllers = @[audioNaviCtrl, videoNaviCtrl, photoAndvideoNaviCtrl];
     
     self.window.rootViewController = tabCtrl;
     [self.window makeKeyAndVisible];
