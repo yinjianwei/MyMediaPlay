@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface VideoPlayerViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface VideoPlayerViewController : BaseViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end

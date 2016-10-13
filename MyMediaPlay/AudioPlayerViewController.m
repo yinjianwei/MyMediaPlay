@@ -37,9 +37,6 @@
     
     self.title = @"音频播放";
     self.view.backgroundColor = [UIColor whiteColor];
-//    self.automaticallyAdjustsScrollViewInsets = NO;
-//    self.navigationController.navigationBar.translucent = NO;
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     self.audioPlayList = [[NSMutableArray alloc] init];
     self.playIndex = 0;

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface CustomVideoPlayLayer : UIViewController
+@interface CustomVideoPlayLayer : BaseViewController
 
 -(instancetype)initVideoPlayerWithFilePath:(NSString*)filePath;
 

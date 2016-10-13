@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "BaseViewController.h"
 
-@interface AudioPlayerViewController : UIViewController <AVAudioPlayerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface AudioPlayerViewController : BaseViewController <AVAudioPlayerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 -(void)updateLockScreenInfo;
 

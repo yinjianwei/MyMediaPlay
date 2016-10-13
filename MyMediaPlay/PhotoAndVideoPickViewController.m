@@ -23,7 +23,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"相机" style:UIBarButtonItemStylePlain target:self action:@selector(onBtnCamera:)];
     
+    [self setupUI];
+}
+
+-(void)setupUI
+{
     UIButton* pickPhotoButton = [[UIButton alloc] init];
     [pickPhotoButton.layer setBorderWidth:1];
     [pickPhotoButton.layer setCornerRadius:5];
@@ -62,6 +69,10 @@
 }
 
 #pragma mark - button event
+
+-(void)onBtnCamera:(id)sender
+{
+}
 
 -(void)onBtnPhotoPick:(id)sender
 {

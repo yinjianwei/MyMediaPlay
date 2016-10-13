@@ -46,9 +46,9 @@
     [self.window makeKeyAndVisible];
     
     //后台播放
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    [session setActive:YES error:nil];
-    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+//    AVAudioSession *session = [AVAudioSession sharedInstance];
+//    [session setActive:YES error:nil];
+//    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
     
     //允许远程控制
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];

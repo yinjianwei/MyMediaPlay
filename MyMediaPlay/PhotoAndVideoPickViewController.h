@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface PhotoAndVideoPickViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface PhotoAndVideoPickViewController : BaseViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @end
