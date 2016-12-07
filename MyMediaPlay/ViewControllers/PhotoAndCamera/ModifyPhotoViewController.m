@@ -11,6 +11,7 @@
 
 @interface ModifyPhotoViewController ()
 
+@property(nonatomic, strong)GPUImageView*   gpuimageView;
 @property(nonatomic, strong)UIImageView*    showPhoto;
 @property(nonatomic, strong)UIImage*        originImage;
 @property(nonatomic, strong)UIView*         adjustView;
@@ -36,6 +37,11 @@
     return self;
 }
 
+-(void)didReceiveMemoryWarning
+{
+    NSLog(@"memory warning!");
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -51,18 +57,23 @@
 
 -(void)setupUI
 {
-    self.showPhoto = [[UIImageView alloc] init];
-    [self.showPhoto.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    [self.showPhoto.layer setBorderWidth:0.5f];
-    [self.showPhoto.layer setCornerRadius:5];
-    self.showPhoto.image = self.originImage;
-    self.showPhoto.clipsToBounds = YES;
-    [self.view addSubview:self.showPhoto];
-    [self.showPhoto makeConstraints:^(MASConstraintMaker *make) {
+    self.gpuimageView = [[GPUImageView alloc] init];
+    [self.gpuimageView.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+    [self.gpuimageView.layer setBorderWidth:0.5f];
+    [self.gpuimageView.layer setCornerRadius:5];
+    self.gpuimageView.clipsToBounds = YES;
+    [self.view addSubview:self.gpuimageView];
+    [self.gpuimageView makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(20);
         make.left.equalTo(self.view).offset(self.view.frame.size.width/6);
         make.right.equalTo(self.view).offset(-self.view.frame.size.width/6);
-        make.height.equalTo(self.showPhoto.width).multipliedBy(4.0/3);
+        make.height.equalTo(self.gpuimageView.width).multipliedBy(4.0/3);
+    }];
+    
+    self.showPhoto = [[UIImageView alloc] initWithImage:self.originImage];
+    [self.gpuimageView addSubview:self.showPhoto];
+    [self.showPhoto makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.gpuimageView);
     }];
     
     UIScrollView* btnScrollView = [[UIScrollView alloc] init];
@@ -82,7 +93,7 @@
         make.height.equalTo(btnScrollView);
     }];
     
-    NSArray* btnTitles = @[@"原照", @"怀旧", @"锐化", @"高斯模糊"];
+    NSArray* btnTitles = @[@"原照", @"怀旧", @"锐化", @"高斯模糊", @"像素化", @"噪点", @"浮雕", @"素描", @"油画"];
     UIButton* lastBtn = nil;
     for(int i = 0;i < btnTitles.count;++i)
     {
@@ -165,14 +176,39 @@
         case 2:
             self.paramDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(0), @"sharpness", nil];
             [self editPhotoWithSharpenFilter];
-            [self createSliders:@[@[@"sharpness", @(0), @(-4.0), @(4.0)]]];
+            [self createSliders:@[@[@"sharpness", @(50), @(0), @(100)]]];
             break;
         case 3:
             self.paramDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(0.5), @"texelSpacingMultiplier", @(5), @"blurRadiusInPixels", @(5), @"blurPasses", nil];
             [self editPhotoWithGaussianBlurFilter];
-            [self createSliders:@[@[@"texelSpacingMultiplier", @(0.5), @(0.0), @(100.0)],
-                                  @[@"blurRadiusInPixels", @(5), @(0.0), @(100.0)],
+            [self createSliders:@[@[@"texelSpacingMultiplier", @(5), @(0.0), @(100.0)],
+                                  @[@"blurRadiusInPixels", @(5), @(0.0), @(24.0)],
                                   @[@"blurPasses", @(5), @(0), @(100)]]];
+            break;
+        case 4:
+            self.paramDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(5), @"fractionalWidthOfAPixel", nil];
+            [self editPhotoWithPixellate];
+            [self createSliders:@[@[@"fractionalWidthOfAPixel", @(5), @(0), @(100)]]];
+            break;
+        case 5:
+            self.paramDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(5), @"colorLevels", nil];
+            [self editPhotoWithPosterize];
+            [self createSliders:@[@[@"colorLevels", @(5), @(1), @(20)]]];
+            break;
+        case 6:
+            self.paramDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(5), @"intensity", nil];
+            [self editPhotoWithEmboss];
+            [self createSliders:@[@[@"intensity", @(5), @(0), @(10)]]];
+            break;
+        case 7:
+            self.paramDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(1), @"edgeStrength", nil];
+            [self editPhotoWithSketch];
+            [self createSliders:@[@[@"edgeStrength", @(1), @(0), @(10)]]];
+            break;
+        case 8:
+            self.paramDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@(1), @"radius", nil];
+            [self editPhotoWithOilPaint];
+            [self createSliders:@[@[@"radius", @(1), @(0), @(10)]]];
             break;
             
         default:
@@ -188,7 +224,12 @@
     NSArray* ary = @[NSStringFromSelector(@selector(editPhotoToOrigin)),
                      NSStringFromSelector(@selector(editPhtotWithSepiaFilter)),
                      NSStringFromSelector(@selector(editPhotoWithSharpenFilter)),
-                     NSStringFromSelector(@selector(editPhotoWithGaussianBlurFilter))];
+                     NSStringFromSelector(@selector(editPhotoWithGaussianBlurFilter)),
+                     NSStringFromSelector(@selector(editPhotoWithPixellate)),
+                     NSStringFromSelector(@selector(editPhotoWithPosterize)),
+                     NSStringFromSelector(@selector(editPhotoWithEmboss)),
+                     NSStringFromSelector(@selector(editPhotoWithSketch)),
+                     NSStringFromSelector(@selector(editPhotoWithOilPaint))];
     SEL selector = NSSelectorFromString([ary objectAtIndex:self.currentFliterIndex]);
     
     //使用performSelector在arc模式下会产生warning，解决方法有3种
@@ -282,8 +323,7 @@
     if(self.filter && [self.filter isKindOfClass:[GPUImageSharpenFilter class]])
     {
         NSNumber* value = [self.paramDict objectForKey:@"sharpness"];
-//        ((GPUImageSharpenFilter*)self.filter).sharpness = value ? value.floatValue : 0;
-        [(GPUImageSharpenFilter*)self.filter setSharpness:value ? value.floatValue : 0];
+        [(GPUImageSharpenFilter*)self.filter setSharpness:value ? value.floatValue/25.0f : 0];
         [self.filter useNextFrameForImageCapture];
         [self.currentPicture processImage];
         UIImage* editImage = [self.filter imageFromCurrentFramebufferWithOrientation:UIImageOrientationRight];
@@ -294,7 +334,7 @@
     GPUImagePicture* imageSource = [[GPUImagePicture alloc] initWithImage:self.originImage];
     GPUImageSharpenFilter* sharpenFilter = [[GPUImageSharpenFilter alloc] init];
     NSNumber* value = [self.paramDict objectForKey:@"sharpness"];
-    sharpenFilter.sharpness = value ? value.floatValue : 0;
+    sharpenFilter.sharpness = value ? value.floatValue/25.0f : 0;
     self.filter = sharpenFilter;
     [imageSource addTarget:self.filter];
     [self.filter useNextFrameForImageCapture];
@@ -309,24 +349,159 @@
     if(self.filter && [self.filter isKindOfClass:[GPUImageGaussianBlurFilter class]])
     {
         GPUImageGaussianBlurFilter* gaussianBlurFilter = (GPUImageGaussianBlurFilter*)self.filter;
-        NSNumber* value1 = [self.paramDict objectForKey:@"texelSpacingMultiplier"];
-        gaussianBlurFilter.texelSpacingMultiplier = value1 ? value1.floatValue : 0.5;
+//        NSNumber* value1 = [self.paramDict objectForKey:@"texelSpacingMultiplier"];
+//        gaussianBlurFilter.texelSpacingMultiplier = value1 ? value1.floatValue : 5;
         NSNumber* value2 = [self.paramDict objectForKey:@"blurRadiusInPixels"];
         gaussianBlurFilter.blurRadiusInPixels = value2 ? value2.floatValue : 5;
-        NSNumber* value3 = [self.paramDict objectForKey:@"blurPasses"];
-        gaussianBlurFilter.blurPasses = value3 ? value3.floatValue : 5;
+//        NSNumber* value3 = [self.paramDict objectForKey:@"blurPasses"];
+//        gaussianBlurFilter.blurPasses = value3 ? value3.floatValue : 5;
+//        [self.filter useNextFrameForImageCapture];
+//        [self.currentPicture processImage];
+//        UIImage* editImage = [self.filter imageFromCurrentFramebufferWithOrientation:UIImageOrientationRight];
+//        self.showPhoto.image = editImage;
         return;
     }
     
     GPUImagePicture* imageSource = [[GPUImagePicture alloc] initWithImage:self.originImage];
     GPUImageGaussianBlurFilter* gaussianBlurFilter = [[GPUImageGaussianBlurFilter alloc] init];
     NSNumber* value1 = [self.paramDict objectForKey:@"texelSpacingMultiplier"];
-    gaussianBlurFilter.texelSpacingMultiplier = value1 ? value1.floatValue : 0.5;
+    gaussianBlurFilter.texelSpacingMultiplier = value1 ? value1.floatValue : 5;
     NSNumber* value2 = [self.paramDict objectForKey:@"blurRadiusInPixels"];
     gaussianBlurFilter.blurRadiusInPixels = value2 ? value2.floatValue : 5;
     NSNumber* value3 = [self.paramDict objectForKey:@"blurPasses"];
     gaussianBlurFilter.blurPasses = value3 ? value3.floatValue : 5;
     self.filter = gaussianBlurFilter;
+    [imageSource addTarget:self.filter];
+    [self.filter addTarget:self.gpuimageView];
+    [self.filter useNextFrameForImageCapture];
+    [imageSource processImage];
+    UIImage* editImage = [self.filter imageFromCurrentFramebufferWithOrientation:UIImageOrientationRight];
+    self.showPhoto.image = editImage;
+    self.currentPicture = imageSource;
+}
+
+-(void)editPhotoWithPixellate
+{
+    if(self.filter && [self.filter isKindOfClass:[GPUImagePixellateFilter class]])
+    {
+        NSNumber* value = [self.paramDict objectForKey:@"fractionalWidthOfAPixel"];
+        [(GPUImagePixellateFilter*)self.filter setFractionalWidthOfAPixel:value ? value.floatValue/1000.0 : 0];
+        [self.filter useNextFrameForImageCapture];
+        [self.currentPicture processImage];
+        UIImage* editImage = [self.filter imageFromCurrentFramebufferWithOrientation:UIImageOrientationRight];
+        self.showPhoto.image = editImage;
+        return;
+    }
+    
+    GPUImagePicture* imageSource = [[GPUImagePicture alloc] initWithImage:self.originImage];
+    GPUImagePixellateFilter* pixellateFilter = [[GPUImagePixellateFilter alloc] init];
+    NSNumber* value1 = [self.paramDict objectForKey:@"fractionalWidthOfAPixel"];
+    pixellateFilter.fractionalWidthOfAPixel = value1 ? value1.floatValue/1000.0 : 0;
+    self.filter = pixellateFilter;
+    [imageSource addTarget:self.filter];
+    [self.filter useNextFrameForImageCapture];
+    [imageSource processImage];
+    UIImage* editImage = [self.filter imageFromCurrentFramebufferWithOrientation:UIImageOrientationRight];
+    self.showPhoto.image = editImage;
+    self.currentPicture = imageSource;
+}
+
+-(void)editPhotoWithPosterize
+{
+    if(self.filter && [self.filter isKindOfClass:[GPUImagePosterizeFilter class]])
+    {
+        NSNumber* value = [self.paramDict objectForKey:@"colorLevels"];
+        [(GPUImagePosterizeFilter*)self.filter setColorLevels:value ? value.floatValue : 1];
+        [self.filter useNextFrameForImageCapture];
+        [self.currentPicture processImage];
+        UIImage* editImage = [self.filter imageFromCurrentFramebufferWithOrientation:UIImageOrientationRight];
+        self.showPhoto.image = editImage;
+        return;
+    }
+    
+    GPUImagePicture* imageSource = [[GPUImagePicture alloc] initWithImage:self.originImage];
+    GPUImagePosterizeFilter* posterizeFilter = [[GPUImagePosterizeFilter alloc] init];
+    NSNumber* value1 = [self.paramDict objectForKey:@"colorLevels"];
+    posterizeFilter.colorLevels = value1 ? value1.floatValue : 1;
+    self.filter = posterizeFilter;
+    [imageSource addTarget:self.filter];
+    [self.filter useNextFrameForImageCapture];
+    [imageSource processImage];
+    UIImage* editImage = [self.filter imageFromCurrentFramebufferWithOrientation:UIImageOrientationRight];
+    self.showPhoto.image = editImage;
+    self.currentPicture = imageSource;
+}
+
+-(void)editPhotoWithEmboss
+{
+    if(self.filter && [self.filter isKindOfClass:[GPUImageEmbossFilter class]])
+    {
+        NSNumber* value = [self.paramDict objectForKey:@"intensity"];
+        [(GPUImageEmbossFilter*)self.filter setIntensity:value ? 4 * value.floatValue/10.0 : 1];
+        [self.filter useNextFrameForImageCapture];
+        [self.currentPicture processImage];
+        UIImage* editImage = [self.filter imageFromCurrentFramebufferWithOrientation:UIImageOrientationRight];
+        self.showPhoto.image = editImage;
+        return;
+    }
+    
+    GPUImagePicture* imageSource = [[GPUImagePicture alloc] initWithImage:self.originImage];
+    GPUImageEmbossFilter* embossFilter = [[GPUImageEmbossFilter alloc] init];
+    NSNumber* value1 = [self.paramDict objectForKey:@"intensity"];
+    embossFilter.intensity = value1 ? 4 * value1.floatValue/10.0 : 1;
+    self.filter = embossFilter;
+    [imageSource addTarget:self.filter];
+    [self.filter useNextFrameForImageCapture];
+    [imageSource processImage];
+    UIImage* editImage = [self.filter imageFromCurrentFramebufferWithOrientation:UIImageOrientationRight];
+    self.showPhoto.image = editImage;
+    self.currentPicture = imageSource;
+}
+
+-(void)editPhotoWithSketch
+{
+    if(self.filter && [self.filter isKindOfClass:[GPUImageSketchFilter class]])
+    {
+        NSNumber* value = [self.paramDict objectForKey:@"edgeStrength"];
+        [(GPUImageSketchFilter*)self.filter setEdgeStrength:value ? value.floatValue/10.0 : 1];
+        [self.filter useNextFrameForImageCapture];
+        [self.currentPicture processImage];
+        UIImage* editImage = [self.filter imageFromCurrentFramebufferWithOrientation:UIImageOrientationRight];
+        self.showPhoto.image = editImage;
+        return;
+    }
+    
+    GPUImagePicture* imageSource = [[GPUImagePicture alloc] initWithImage:self.originImage];
+    GPUImageSketchFilter* sketchFilter = [[GPUImageSketchFilter alloc] init];
+    NSNumber* value1 = [self.paramDict objectForKey:@"edgeStrength"];
+    sketchFilter.edgeStrength = value1 ? value1.floatValue/10.0 : 1;
+    self.filter = sketchFilter;
+    [imageSource addTarget:self.filter];
+    [self.filter useNextFrameForImageCapture];
+    [imageSource processImage];
+    UIImage* editImage = [self.filter imageFromCurrentFramebufferWithOrientation:UIImageOrientationRight];
+    self.showPhoto.image = editImage;
+    self.currentPicture = imageSource;
+}
+
+-(void)editPhotoWithOilPaint
+{
+    if(self.filter && [self.filter isKindOfClass:[GPUImageKuwaharaFilter class]])
+    {
+        NSNumber* value = [self.paramDict objectForKey:@"radius"];
+        [(GPUImageKuwaharaFilter*)self.filter setRadius:value ? value.floatValue : 1];
+        [self.filter useNextFrameForImageCapture];
+        [self.currentPicture processImage];
+        UIImage* editImage = [self.filter imageFromCurrentFramebufferWithOrientation:UIImageOrientationRight];
+        self.showPhoto.image = editImage;
+        return;
+    }
+    
+    GPUImagePicture* imageSource = [[GPUImagePicture alloc] initWithImage:self.originImage];
+    GPUImageKuwaharaFilter* oilPaintFilter = [[GPUImageKuwaharaFilter alloc] init];
+    NSNumber* value1 = [self.paramDict objectForKey:@"radius"];
+    oilPaintFilter.radius = value1 ? value1.floatValue : 1;
+    self.filter = oilPaintFilter;
     [imageSource addTarget:self.filter];
     [self.filter useNextFrameForImageCapture];
     [imageSource processImage];

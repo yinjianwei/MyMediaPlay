@@ -8,6 +8,12 @@
 
 #import "ValueSliderView.h"
 
+@interface ValueSliderView()
+
+@property(nonatomic)CGFloat lastValue;
+
+@end
+
 @implementation ValueSliderView
 
 -(instancetype)initWithTitle:(NSString *)title value:(CGFloat)value minValue:(CGFloat)minValue maxValue:(CGFloat)maxValue
@@ -15,6 +21,7 @@
     self = [super init];
     if(self)
     {
+        self.lastValue = value;
         [self setupUIWithTitle:title value:value minValue:minValue maxValue:maxValue];
     }
     return self;
@@ -33,9 +40,9 @@
     }];
     
     UISlider* slider = [[UISlider alloc] init];
-    slider.value = value;
     slider.minimumValue = minValue;
     slider.maximumValue = maxValue;
+    slider.value = value;
     [slider addTarget:self action:@selector(updateSliderValue:) forControlEvents:UIControlEventValueChanged];
     [self addSubview:slider];
     [slider makeConstraints:^(MASConstraintMaker *make) {
@@ -48,10 +55,17 @@
 -(void)updateSliderValue:(id)sender
 {
     UISlider* slider = (UISlider*)sender;
+    if(fabs(slider.value - self.lastValue) < 1)
+    {
+        return;
+    }
+    NSLog(@"slider value = %f, lastValue = %f", slider.value, self.lastValue);
+    self.lastValue = slider.value;
     if(self.delegate && [self.delegate respondsToSelector:@selector(updateSliderValue:valueKey:)])
     {
         [self.delegate updateSliderValue:slider.value valueKey:self.valueKey];
     }
+    
 }
 
 @end
