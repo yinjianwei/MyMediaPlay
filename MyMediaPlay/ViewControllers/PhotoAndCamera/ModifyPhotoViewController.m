@@ -489,7 +489,8 @@
     if(self.filter && [self.filter isKindOfClass:[GPUImageKuwaharaFilter class]])
     {
         NSNumber* value = [self.paramDict objectForKey:@"radius"];
-        [(GPUImageKuwaharaFilter*)self.filter setRadius:value ? value.floatValue : 1];
+//        [(GPUImageKuwaharaFilter*)self.filter setRadius:value ? value.floatValue : 1];
+        [(GPUImageFilter*)self.filter setFloat:value.floatValue forUniformName:@"radius"];
         [self.filter useNextFrameForImageCapture];
         [self.currentPicture processImage];
         UIImage* editImage = [self.filter imageFromCurrentFramebufferWithOrientation:UIImageOrientationRight];
@@ -498,10 +499,13 @@
     }
     
     GPUImagePicture* imageSource = [[GPUImagePicture alloc] initWithImage:self.originImage];
-    GPUImageKuwaharaFilter* oilPaintFilter = [[GPUImageKuwaharaFilter alloc] init];
+//    GPUImageKuwaharaFilter* oilPaintFilter = [[GPUImageKuwaharaFilter alloc] init];
+    GPUImageFilter* filter = [[GPUImageFilter alloc] initWithFragmentShaderFromFile:@"oilPaintFilter"];
     NSNumber* value1 = [self.paramDict objectForKey:@"radius"];
-    oilPaintFilter.radius = value1 ? value1.floatValue : 1;
-    self.filter = oilPaintFilter;
+//    oilPaintFilter.radius = value1 ? value1.floatValue : 1;
+    [filter setInteger:(GLint)value1.floatValue forUniformName:@"radius"];
+    [filter setSize:CGSizeMake(self.originImage.size.width*2.0/3, self.originImage.size.height*2.0/3) forUniformName:@"srcSize"];
+    self.filter = filter;
     [imageSource addTarget:self.filter];
     [self.filter useNextFrameForImageCapture];
     [imageSource processImage];

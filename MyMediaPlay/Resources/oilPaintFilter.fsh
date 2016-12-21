@@ -1,10 +1,14 @@
+#pragma debug(on)
+#pragma optimize(off)
+
 varying highp vec2 textureCoordinate;
 uniform sampler2D inputImageTexture;
 uniform int radius;
+uniform highp vec2 srcSize;
 
 precision highp float;
 
-const vec2 src_size = vec2 (768.0, 1024.0);
+//const vec2 srcSize = vec2 (768.0, 1024.0);
 
 void main ()
 {
@@ -20,7 +24,7 @@ void main ()
 
     for (int j = -radius; j <= 0; ++j)  {
         for (int i = -radius; i <= 0; ++i)  {
-            vec3 c = texture2D(inputImageTexture, uv + vec2(i,j) / src_size).rgb;
+            vec3 c = texture2D(inputImageTexture, uv + vec2(i,j) / srcSize).rgb;
             m[0] += c;
             s[0] += c * c;
         }
@@ -28,7 +32,7 @@ void main ()
 
     for (int j = -radius; j <= 0; ++j)  {
         for (int i = 0; i <= radius; ++i)  {
-            vec3 c = texture2D(inputImageTexture, uv + vec2(i,j) / src_size).rgb;
+            vec3 c = texture2D(inputImageTexture, uv + vec2(i,j) / srcSize).rgb;
             m[1] += c;
             s[1] += c * c;
         }
@@ -36,7 +40,7 @@ void main ()
 
     for (int j = 0; j <= radius; ++j)  {
         for (int i = 0; i <= radius; ++i)  {
-            vec3 c = texture2D(inputImageTexture, uv + vec2(i,j) / src_size).rgb;
+            vec3 c = texture2D(inputImageTexture, uv + vec2(i,j) / srcSize).rgb;
             m[2] += c;
             s[2] += c * c;
         }
@@ -44,7 +48,7 @@ void main ()
 
     for (int j = 0; j <= radius; ++j)  {
         for (int i = -radius; i <= 0; ++i)  {
-            vec3 c = texture2D(inputImageTexture, uv + vec2(i,j) / src_size).rgb;
+            vec3 c = texture2D(inputImageTexture, uv + vec2(i,j) / srcSize).rgb;
             m[3] += c;
             s[3] += c * c;
         }

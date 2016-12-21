@@ -25,6 +25,8 @@
 		7C5023FB1DF64FC30081B531 /* VideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C5023F61DF64FC30081B531 /* VideoPlayerViewController.m */; };
 		7C51CB151D87D8EF000D680E /* AudioData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C51CB141D87D8EF000D680E /* AudioData.m */; };
 		7C566BC31D95186400F0EEFF /* lion.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7C566BC21D95186400F0EEFF /* lion.mp4 */; };
+		7C567A361E0A142E006D43EE /* PositionColor.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 7C567A341E0A142E006D43EE /* PositionColor.fsh */; };
+		7C567A371E0A142E006D43EE /* Threshold.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 7C567A351E0A142E006D43EE /* Threshold.fsh */; };
 		7C5F9D281DF7F32500678477 /* sketchFilter.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 7C5F9D271DF7F32500678477 /* sketchFilter.fsh */; };
 		7C5F9D2A1DF7F88700678477 /* oilPaintFilter.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 7C5F9D291DF7F88700678477 /* oilPaintFilter.fsh */; };
 		7C68177A1DF014E900AEBF6C /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C68161A1DF014E900AEBF6C /* GLProgram.m */; };
@@ -253,6 +255,8 @@
 		7C51CB131D87D8EF000D680E /* AudioData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioData.h; path = Data/AudioData.h; sourceTree = "<group>"; };
 		7C51CB141D87D8EF000D680E /* AudioData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioData.m; path = Data/AudioData.m; sourceTree = "<group>"; };
 		7C566BC21D95186400F0EEFF /* lion.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = lion.mp4; sourceTree = "<group>"; };
+		7C567A341E0A142E006D43EE /* PositionColor.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = PositionColor.fsh; sourceTree = "<group>"; };
+		7C567A351E0A142E006D43EE /* Threshold.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Threshold.fsh; sourceTree = "<group>"; };
 		7C5F9D271DF7F32500678477 /* sketchFilter.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = sketchFilter.fsh; sourceTree = "<group>"; };
 		7C5F9D291DF7F88700678477 /* oilPaintFilter.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = oilPaintFilter.fsh; sourceTree = "<group>"; };
 		7C6816191DF014E900AEBF6C /* GLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLProgram.h; sourceTree = "<group>"; };
@@ -1175,6 +1179,8 @@
 		7CB330BB1D81604300ED10BD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7C567A341E0A142E006D43EE /* PositionColor.fsh */,
+				7C567A351E0A142E006D43EE /* Threshold.fsh */,
 				7C5F9D291DF7F88700678477 /* oilPaintFilter.fsh */,
 				7C5F9D271DF7F32500678477 /* sketchFilter.fsh */,
 				7C566BC21D95186400F0EEFF /* lion.mp4 */,
@@ -1257,7 +1263,9 @@
 				7C47A3551D82537D00D27D0F /* Info.plist in Resources */,
 				7CB330AB1D815F8E00ED10BD /* LaunchScreen.storyboard in Resources */,
 				7C5F9D2A1DF7F88700678477 /* oilPaintFilter.fsh in Resources */,
+				7C567A371E0A142E006D43EE /* Threshold.fsh in Resources */,
 				7CB330BD1D81604300ED10BD /* 杨洋 - 微微一笑很倾城.mp3 in Resources */,
+				7C567A361E0A142E006D43EE /* PositionColor.fsh in Resources */,
 				7C566BC31D95186400F0EEFF /* lion.mp4 in Resources */,
 				7CB330A81D815F8E00ED10BD /* Assets.xcassets in Resources */,
 				7C5F9D281DF7F32500678477 /* sketchFilter.fsh in Resources */,
